@@ -1,8 +1,7 @@
 #include <iostream>
-
-#include <vector>
-#include <tuple>
 #include <string_view>
+#include <tuple>
+#include <vector>
 
 #define GET_ARG_COUNT(...) std::tuple_size<decltype(std::make_tuple(__VA_ARGS__))>::value
 
@@ -23,21 +22,19 @@
 #define MACRO_CONCAT1(A, B) A##_##B
 
 struct Haha {
-    int a;
-    int b;
-    int c;
+  int a;
+  int b;
+  int c;
 };
 
 int main() {
+  std::string a{"234"};
+  std::vector<int> b{1, 2, 3, 4};
+  MACRO_CONCAT(CON_STR, 3)(a, b, b);
+  std::array<std::string_view, 3> c = {MACRO_EXPAND(MACRO_CONCAT(CON_STR, 3)(a, b, b))};
 
-    std::string a{"234"};
-    std::vector<int> b{1, 2, 3, 4};
-    MACRO_CONCAT(CON_STR, 3)(a, b, b);
-    std::array<std::string_view, 3> c = {MACRO_EXPAND(MACRO_CONCAT(CON_STR, 3)(a, b, b))};
+  static_assert(GET_ARG_COUNT(1, 2, 3, a, Haha{}, b) == 6);
 
-    static_assert(GET_ARG_COUNT(1, 2, 3, a, Haha{}, b) == 6);
-
-
-    std::cout << "Hello, World!" << std::endl;
-    return 0;
+  std::cout << "Hello, World!" << std::endl;
+  return 0;
 }

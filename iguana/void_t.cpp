@@ -1,12 +1,12 @@
 #include <type_traits>
 
-template<class, class = void>
+template <class, class = void>
 struct has_type_member : std::false_type {};
 
 template <class T>
 struct has_type_member<T, std::void_t<typename T::type>> : std::true_type {};
 
-template<class, class = void>
+template <class, class = void>
 struct has_hello_member : std::false_type {};
 
 template <class T>
